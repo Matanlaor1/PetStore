@@ -1,0 +1,103 @@
+﻿@model PetStore.Models.Animal
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+}
+
+<h1>Index</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Animal</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <hr class="w-100" />
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Age)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Age)
+                </dd>
+                <hr class="w-100" />
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </dt>
+                <dd class="col-sm-8">
+                    <img src="@Model.ImagePath" style="max-height:200px" />
+                </dd>
+                <hr class="w-100" />
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <hr class="w-100" />
+                <dt class="col-sm-4">
+                    Category
+                </dt>
+                <dd class="col-sm-8">
+                    @ViewBag.CategoryName.Name
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <h4>Add a comment</h4>
+            <form onsubmit="validateForm(event)" id="commentForm" asp-action="AddComment" asp-controller="Comment">
+                <div>
+                    <label for="textInput">Enter Text:</label>
+                    <input type="text" id="textInput" name="content" />
+                </div>
+                <span id="error-message" style="color:red;"></span>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+                <input type="hidden" name="animalid" value="@Model.AnimalId" />
+            </form>
+
+
+            <h3>Comment section</h3>
+            <hr />
+            @if (Model.Comments != null && Model.Comments.Count > 0)
+            {
+                @foreach (var comment in Model.Comments)
+                {
+                    <p>@comment.Content</p>
+                    <hr />
+                }
+            }
+            else
+            {
+                <p>No comments</p>
+            }
+        </div>
+    </div>
+</div>
+<script>
+function validateForm(event) {
+            event.preventDefault(); // Prevent the form from submitting
+            var input = document.getElementById("textInput").value;
+            var errorMessage = document.getElementById("error-message");
+
+            if (input === "" || input.length < 3 || input.length > 40) {
+                errorMessage.textContent = "Input must be at least 3 characters long and lower than 40 characters";
+            } else {
+                errorMessage.textContent = "";
+            document.getElementById("commentForm").submit();
+            }
+        }
+</script>
+
+@section Scripts {
+
+}

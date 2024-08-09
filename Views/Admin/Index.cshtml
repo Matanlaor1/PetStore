@@ -1,0 +1,62 @@
+﻿@model List<PetStore.Models.Animal>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Admin";
+}
+@section Styles {
+
+}
+<form method="get" action="@Url.Action("Index")">
+    <label for="categoryId">Filter by Category:</label>
+    @Html.DropDownList("categoryId", (SelectList)ViewBag.Categories, "All Categories", new { onchange = "this.form.submit();" })
+</form>
+<p>
+    To create a new animal:     <a asp-action="Create">New</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Image</th>
+            <th scope="col">Description</th>
+            <th scope="col">More Info</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var animal in Model)
+        {
+            string classinput = (i % 2 == 0) ? "table-success" : "table-light";
+            <tr class="@classinput">
+                <td>@animal.Name</td>
+                <td>@animal.Age</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(animal.ImagePath))
+                    {
+                        <img src="@animal.ImagePath" alt="@animal.Name" width="100" />
+                    }
+                </td>
+                <td>@animal.Description</td>
+                <td>
+                    <a class=" link-dark" asp-area="" asp-controller="Admin" asp-action="Edit" asp-route-id="@animal.AnimalId">Edit</a>
+                    <a class=" link-dark" asp-area="" asp-controller="Admin" asp-action="Delete" asp-route-id="@animal.AnimalId">Delete</a>
+
+                </td>
+            </tr>
+            i++;
+        }
+
+    </tbody>
+</table>
+
+
+
+
+
+@section Scripts {
+
+}

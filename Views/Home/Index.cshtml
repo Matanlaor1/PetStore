@@ -1,0 +1,81 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Home";
+}
+@section Styles {
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <h3 class="card-header">@ViewBag.Animals[0].Name</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.Animals[0].Description</h5>
+                </div>
+                <div style="width:auto; height:fit-content">
+                    <img src="@ViewBag.Animals[0].ImagePath" class="card-img-top" alt="Image cap" />
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Age: @ViewBag.Animals[0].Age</p>
+                    <p class="card-text">Number of Comments: @ViewBag.Animals[0].Comments.Count</p>
+
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Animal" asp-action="" asp-route-id=@ViewBag.Animals[0].AnimalId class="card-link">Animal's Page</a>
+                </div>
+                <div class="card-body">
+                    <h5>Comments:</h5>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var comment in ViewBag.Animals[0].Comments)
+                        {
+                            <li class="list-group-item">@comment.Content</li>
+                        }
+                    </ul>
+                </div>
+                <div class="card-footer text-muted">
+                    
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <h3 class="card-header">@ViewBag.Animals[1].Name</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.Animals[1].Description</h5>
+                </div>
+                <div style="width:auto; height:fit-content">
+                    <img src="@ViewBag.Animals[1].ImagePath" class="card-img-top" alt="Image cap" />
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Age: @ViewBag.Animals[1].Age</p>
+                    <p class="card-text">Number of Comments: @ViewBag.Animals[1].Comments.Count</p>
+
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Animal" asp-action="" asp-route-id=@ViewBag.Animals[1].AnimalId class="card-link">Animal's Page</a>
+                </div>
+                <div class="card-body">
+                    <h5>Comments:</h5>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var comment in ViewBag.Animals[1].Comments)
+                        {
+                            <li class="list-group-item">@comment.Content</li>
+                        }
+                    </ul>
+                </div>
+                <div class="card-footer text-muted">
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+}
